@@ -106,6 +106,90 @@ Authorization: Token <tu-token>
 - `/api/v1/productos/`
 - `/api/v1/clientes/`
 
+### Métodos y respuestas HTTP
+
+Los recursos `usuarios`, `productos` y `clientes` utilizan las operaciones estándar de un `ModelViewSet`:
+
+| Método | Ruta | Respuesta esperada | Descripción |
+| --- | --- | --- | --- |
+| `GET` | `/api/v1/productos/` | `200 OK` | Devuelve la lista de productos. |
+| `GET` | `/api/v1/productos/<id>/` | `200 OK` | Devuelve un producto específico. |
+| `POST` | `/api/v1/productos/` | `201 Created` | Crea un producto y devuelve el registro creado. |
+| `PUT` | `/api/v1/productos/<id>/` | `200 OK` | Reemplaza todos los datos del producto. |
+| `PATCH` | `/api/v1/productos/<id>/` | `200 OK` | Actualiza parcialmente un producto. |
+| `DELETE` | `/api/v1/productos/<id>/` | `204 No Content` | Elimina el producto correctamente. |
+
+Las mismas operaciones están disponibles para `/usuarios/` y `/clientes/`.
+
+#### Respuestas exitosas
+
+Una consulta de lista (`GET`) devuelve un arreglo JSON:
+
+```json
+[
+   {
+      "id": 1,
+      "nombre": "Producto de ejemplo"
+   }
+]
+```
+
+Una creación o actualización devuelve el objeto guardado. Por ejemplo, una respuesta `201 Created` puede tener esta estructura:
+
+```json
+{
+   "id": 1,
+   "nombre": "Producto de ejemplo",
+   "precio_venta": "1190.00"
+}
+```
+
+El endpoint de login responde `200 OK` y devuelve el token:
+
+```json
+{
+   "token": "<tu-token>"
+}
+```
+
+Una eliminación exitosa responde `204 No Content` y no incluye contenido en el cuerpo de la respuesta.
+
+#### Respuestas de error
+
+| Código | Nombre | Cuándo ocurre |
+| --- | --- | --- |
+| `400` | `Bad Request` | Los datos enviados son inválidos o faltan campos obligatorios. |
+| `401` | `Unauthorized` | No se envió un token válido en `Authorization`. |
+| `403` | `Forbidden` | El usuario está autenticado, pero no tiene permiso para realizar la operación. |
+| `404` | `Not Found` | El recurso solicitado no existe, por ejemplo, `/api/v1/productos/999/`. |
+| `405` | `Method Not Allowed` | Se utilizó un método HTTP que la ruta no permite. |
+
+Ejemplo de error de validación (`400 Bad Request`):
+
+```json
+{
+   "email": [
+      "El email debe terminar en @ventasfix.cl"
+   ]
+}
+```
+
+Ejemplo de acceso sin autenticación (`401 Unauthorized`):
+
+```json
+{
+   "detail": "Authentication credentials were not provided."
+}
+```
+
+Ejemplo de recurso inexistente (`404 Not Found`):
+
+```json
+{
+   "detail": "Not found."
+}
+```
+
 La documentación completa está disponible en [Swagger UI](http://localhost:8000/api/docs/) cuando el proyecto está en ejecución.
 
 ## Pruebas
