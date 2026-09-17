@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Resumen{% endblock %}
+{% block breadcrumb %}Resumen general{% endblock %}
+{% block content %}
+<section class="page-heading">
+    <div><p class="eyebrow">OPERACIONES / HOY</p><h1>Resumen general</h1><p class="muted">Una vista rápida de la actividad de tu backoffice.</p></div>
+    <span class="date-chip">● Sistema activo</span>
+</section>
+<section class="metrics">
+    <article class="metric-card coral"><div class="metric-top"><span class="metric-icon">◎</span><span class="trend">+ datos</span></div><strong>{{ total_usuarios }}</strong><span>Usuarios registrados</span><a href="{% url 'usuarios:lista' %}">Gestionar usuarios <b>→</b></a></article>
+    <article class="metric-card mint"><div class="metric-top"><span class="metric-icon">□</span><span class="trend">+ datos</span></div><strong>{{ total_productos }}</strong><span>Productos en inventario</span><a href="{% url 'inventario:lista' %}">Ver inventario <b>→</b></a></article>
+    <article class="metric-card blue"><div class="metric-top"><span class="metric-icon">◇</span><span class="trend">+ datos</span></div><strong>{{ total_clientes }}</strong><span>Clientes empresa</span><a href="{% url 'clientes:lista' %}">Ver clientes <b>→</b></a></article>
+</section>
+<section class="welcome-panel"><div><p class="eyebrow">VENTASFIX / BACKOFFICE</p><h2>Todo bajo control.</h2><p>Administra usuarios, productos y clientes desde un solo lugar.</p></div><span class="panel-mark">V</span></section>
+{% endblock %}

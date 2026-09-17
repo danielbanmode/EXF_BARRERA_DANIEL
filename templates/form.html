@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block title %}Formulario{% endblock %}{% block breadcrumb %}Formulario{% endblock %}
+{% block content %}<section class="page-heading"><div><p class="eyebrow">GESTIÓN / REGISTRO</p><h1>Formulario</h1><p class="muted">Completa todos los campos obligatorios.</p></div></section><div class="form-card"><form method="post" enctype="multipart/form-data">{% csrf_token %}{{ form.as_p }}<div class="form-actions"><button class="button primary" type="submit">Guardar registro</button><a class="button secondary" href="javascript:history.back()">Cancelar</a></div></form></div>{% endblock %}
